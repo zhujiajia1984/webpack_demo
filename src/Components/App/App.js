@@ -1,6 +1,7 @@
 import React from 'react';
-// import './App.css';
+import './App.css';
 import './App.less';
+import { Button } from 'antd';
 
 //
 export default class App extends React.Component {
@@ -9,8 +10,11 @@ export default class App extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="title titleLess">
 				App
+                <div>
+                    <Button type="primary">default</Button>
+                </div>
             </div>
         );
     }
