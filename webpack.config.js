@@ -9,7 +9,7 @@ module.exports = {
     mode: 'development',
     devServer: {
         contentBase: path.join(__dirname, "dist"),
-        port: 18211,
+        port: 18212,
         historyApiFallback: true,
     },
     module: {
@@ -25,6 +25,15 @@ module.exports = {
                 { loader: "style-loader" },
                 { loader: "css-loader" },
             ]
-        }, ]
+        }, {
+            test: /\.less$/,
+            use: [
+                { loader: "style-loader" },
+                { loader: "css-loader" },
+                {
+                    loader: "less-loader",
+                }
+            ]
+        }]
     }
 }
