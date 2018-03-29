@@ -5,12 +5,13 @@ const extractCSS = new ExtractTextPlugin('stylesheets/[name]-one.css');
 const extractLESS = new ExtractTextPlugin('stylesheets/[name]-two.css');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        main: './src/index.js'
+    },
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
-    mode: 'development',
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         port: 18212,

@@ -1,14 +1,17 @@
 const path = require('path');
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const extractCSS = new ExtractTextPlugin('stylesheets/[name]-one.css');
+const extractLESS = new ExtractTextPlugin('stylesheets/[name]-two.css');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        main: './src/index.js'
+    },
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
-    mode: 'production',
     module: {
         rules: [{
             test: /\.(js|jsx)$/,
@@ -18,20 +21,25 @@ module.exports = {
             }
         }, {
             test: /\.css$/,
-            use: ExtractTextPlugin.extract({
+            use: extractCSS.extract({
                 fallback: "style-loader",
                 use: "css-loader"
             })
         }, {
             test: /\.less$/,
-            use: [
-                { loader: "style-loader" },
-                { loader: "css-loader" },
-                { loader: "less-loader" }
-            ]
+            use: extractLESS.extract({
+                use: [{
+                    loader: "css-loader"
+                }, {
+                    loader: "less-loader"
+                }],
+                // use style-loader in development
+                fallback: "style-loader"
+            })
         }]
     },
     plugins: [
-        new ExtractTextPlugin("styles.css"),
+        extractCSS,
+        extractLESS
     ]
 }
